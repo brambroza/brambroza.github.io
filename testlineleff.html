@@ -11,11 +11,12 @@
                 document.getElementById('userId').textContent = userId;
                 saveUserIdToGoogleSheet(userId);
             }).catch(err => {
+                 document.getElementById('userId').textContent =err;
                 console.error('Error getting profile:', err);
             });
         });
     }).catch(err => {
-        document.getElementById('userId').textContent =err;
+       
         console.error('Error initializing LIFF:', err);
     });
 };
