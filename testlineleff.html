@@ -15,6 +15,7 @@
             });
         });
     }).catch(err => {
+        document.getElementById('userId').textContent =err;
         console.error('Error initializing LIFF:', err);
     });
 };
