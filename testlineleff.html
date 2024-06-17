@@ -9,7 +9,7 @@
                 document.getElementById('getUserIdButton').addEventListener('click', function() {
                     liff.getProfile().then(profile => {
                         const userId = profile.userId;
-                        document.getElementById('userId').textContent = userId;
+                        document.getElementById('userId').textContent = profile;
                         saveUserIdToGoogleSheet(userId);
                     }).catch(err => {
                         document.getElementById('userId').textContent = err.toString();
