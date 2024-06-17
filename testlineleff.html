@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LIFF App</title>
-  <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
-  <script>
-    async function main() {
-      await liff.init({ liffId: "2005627400-Olrpek0v" }); // Replace with your LIFF ID
-      if (!liff.isLoggedIn()) {
-        liff.login();
-      }
-      
-      document.getElementById('send').addEventListener('click', () => {
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
-        
-        fetch('https://script.google.com/macros/s/AKfycbwfwWgCFA-vCLCpD7mNHP6Dea-oOaJ7nHwnRdIFMyXDkSnIiRi7xPw66HOycvi8tQeTog/exec', { // Replace with your Google Apps Script URL
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ name, email, message }),
-        })
-        .then(response => response.text())
-        .then(data => {
-          alert(data);
+    <title>LINE LIFF App</title>
+    <script src="https://static.line-scdn.net/liff/edge/2.1/liff.js"></script>
+    <script  > window.onload = function() {
+    liff.init({ liffId: "YOUR_LIFF_ID" }).then(() => {
+        document.getElementById('getUserIdButton').addEventListener('click', function() {
+            liff.getProfile().then(profile => {
+                const userId = profile.userId;
+                document.getElementById('userId').textContent = userId;
+                saveUserIdToGoogleSheet(userId);
+            }).catch(err => {
+                console.error('Error getting profile:', err);
+            });
         });
-      });
-    }
-    main();
-  </script>
+    }).catch(err => {
+        console.error('Error initializing LIFF:', err);
+    });
+};
+
+function saveUserIdToGoogleSheet(userId) {
+    const scriptUrl = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+    fetch(scriptUrl, {
+        method: 'POST',
+        body: JSON.stringify({ userId: userId }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json()).then(data => {
+        console.log('Success:', data);
+    }).catch(error => {
+        console.error('Error:', error);
+    });
+}
+</script>
 </head>
 <body>
-  <h1>Submit Data</h1>
-  <input type="text" id="name" placeholder="Name">
-  <input type="email" id="email" placeholder="Email">
-  <textarea id="message" placeholder="Message"></textarea>
-  <button id="send">Send</button>
+    <h1>Get LINE User ID</h1>
+    <button id="getUserIdButton">Get User ID</button>
+    <p id="userId"></p>
 </body>
 </html>
