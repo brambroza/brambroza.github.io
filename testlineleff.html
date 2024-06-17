@@ -3,39 +3,40 @@
 <head>
     <title>LINE LIFF App</title>
     <script src="https://static.line-scdn.net/liff/edge/2.1/liff.js"></script>
-    <script  > window.onload = function() {
-    liff.init({ liffId: "2005641282-mG0q5w8V" }).then(() => {
-        document.getElementById('getUserIdButton').addEventListener('click', function() {
-            liff.getProfile().then(profile => {
-                const userId = profile.userId;
-                document.getElementById('userId').textContent = userId;
-                saveUserIdToGoogleSheet(userId);
+    <script>
+        window.onload = function() {
+            liff.init({ liffId: "2005641282-mG0q5w8V" }).then(() => {
+                document.getElementById('getUserIdButton').addEventListener('click', function() {
+                    liff.getProfile().then(profile => {
+                        const userId = profile.userId;
+                        document.getElementById('userId').textContent = userId;
+                        saveUserIdToGoogleSheet(userId);
+                    }).catch(err => {
+                        document.getElementById('userId').textContent = err.toString();
+                        console.error('Error getting profile:', err);
+                    });
+                });
             }).catch(err => {
-                 document.getElementById('userId').textContent =err;
-                console.error('Error getting profile:', err);
+                document.getElementById('userId').textContent = err.toString();
+                console.error('Error initializing LIFF:', err);
             });
-        });
-    }).catch(err => {
-       
-        console.error('Error initializing LIFF:', err);
-    });
-};
+        };
 
-function saveUserIdToGoogleSheet(userId) {
-    const scriptUrl = 'https://script.google.com/macros/s/AKfycbx8ByRHg2hRcoLoMnGEBamJ2DBF-2t-OwiDNmHynP5pNWwyfoKaDPGOlVVeV7PfjBooCQ/exec';
-    fetch(scriptUrl, {
-        method: 'POST',
-        body: JSON.stringify({ userId: userId }),
-        headers: {
-            'Content-Type': 'application/json'
+        function saveUserIdToGoogleSheet(userId) {
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbx8ByRHg2hRcoLoMnGEBamJ2DBF-2t-OwiDNmHynP5pNWwyfoKaDPGOlVVeV7PfjBooCQ/exec';
+            fetch(scriptUrl, {
+                method: 'POST',
+                body: JSON.stringify({ userId: userId }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json()).then(data => {
+                console.log('Success:', data);
+            }).catch(error => {
+                console.error('Error:', error);
+            });
         }
-    }).then(response => response.json()).then(data => {
-        console.log('Success:', data);
-    }).catch(error => {
-        console.error('Error:', error);
-    });
-}
-</script>
+    </script>
 </head>
 <body>
     <h1>Get LINE User ID</h1>
