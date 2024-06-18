@@ -31,7 +31,7 @@
                     'Content-Type': 'application/json'
                 }
             }).then(response => response.json()).then(data => {
-                document.getElementById('err').textContent  = data;
+                document.getElementById('err').textContent  = userId;
                 console.log('Success:', data);
             }).catch(error => {
                 document.getElementById('err').textContent  = error;
@@ -43,7 +43,7 @@
 <body>
     <h1>Get LINE User ID</h1>
     <button id="getUserIdButton">Get User ID</button>
-    <p id="userId"></p>
+    <p id="userId"></p> <br/>
      <p id="err"></p>
 </body>
 </html>
