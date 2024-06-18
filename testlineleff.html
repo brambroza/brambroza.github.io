@@ -31,6 +31,7 @@
                     'Content-Type': 'application/json'
                 }
             }).then(response => response.json()).then(data => {
+                document.getElementById('err').textContent  = data;
                 console.log('Success:', data);
             }).catch(error => {
                 document.getElementById('err').textContent  = error;
