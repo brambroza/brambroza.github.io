@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Org Chart with GoJS</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/2.1.56/go.js"></script>
+</head>
+<body>
+  <div id="myDiagramDiv" style="width: 800px; height: 600px; border: 1px solid black"></div>
+  <script>
+    function init() {
+      var $ = go.GraphObject.make;
+      
+      var myDiagram =
+        $(go.Diagram, "myDiagramDiv",
+          {
+            layout: $(go.TreeLayout,
+                      { angle: 90, layerSpacing: 35 }),
+            "undoManager.isEnabled": true
+          });
+
+      myDiagram.nodeTemplate =
+        $(go.Node, "Auto",
+          $(go.Shape, "Rectangle",
+            { fill: "lightblue" }),
+          $(go.TextBlock,
+            { margin: 5 },
+            new go.Binding("text", "name"))
+        );
+
+      var model = $(go.TreeModel);
+      model.nodeDataArray = [
+        { key: 1, name: "CEO", total: 0 },
+        { key: 2, parent: 1, name: "Manager 1", total: 10 },
+        { key: 3, parent: 1, name: "Manager 2", total: 20 },
+        { key: 4, parent: 2, name: "Employee 1", total: 30 },
+        { key: 5, parent: 2, name: "Employee 2", total: 40 }
+      ];
+
+      myDiagram.model = model;
+
+      // Function to sum totals up the tree
+      function sumTotals(node) {
+        if (node.data.total !== undefined) {
+          var total = node.data.total;
+          node.findTreeChildrenNodes().each(function(child) {
+            total += sumTotals(child);
+          });
+          node.diagram.model.setDataProperty(node.data, "total", total);
+          return total;
+        }
+        return 0;
+      }
+
+      // Sum totals from the bottom to the top
+      myDiagram.nodes.each(function(node) {
+        sumTotals(node);
+      });
+
+      myDiagram.model.addChangedListener(function(e) {
+        if (e.isTransactionFinished) {
+          myDiagram.nodes.each(function(node) {
+            if (node.data.total !== undefined) {
+              sumTotals(node);
+            }
+          });
+        }
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
