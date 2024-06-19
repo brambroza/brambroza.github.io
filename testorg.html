@@ -62,7 +62,11 @@
       const nodeEnter = node.enter().append("g")
         .attr("class", "node")
         .attr("transform", d => `translate(${d.y},${d.x})`)
-        .on("click", click);
+        .on("click", click)
+        .call(d3.drag()
+          .on("start", dragstart)
+          .on("drag", dragged)
+          .on("end", dragend));
 
       nodeEnter.append("circle")
         .attr("r", 10)
@@ -136,6 +140,30 @@
         d._children = null;
       }
       update(d);
+    }
+
+    function dragstart(event, d) {
+      d3.select(this).raise().classed("active", true);
+    }
+
+    function dragged(event, d) {
+      d3.select(this).attr("transform", `translate(${d.y = event.x},${d.x = event.y})`);
+    }
+
+    function dragend(event, d) {
+      d3.select(this).classed("active", false);
+
+      // Find the nearest parent node to append the dragged node to.
+      const target = d3.select(document.elementFromPoint(event.sourceEvent.clientX, event.sourceEvent.clientY));
+      if (target.classed("node")) {
+        const targetData = target.datum();
+        d.parent.children = d.parent.children.filter(child => child !== d);
+        if (!targetData.children) {
+          targetData.children = [];
+        }
+        targetData.children.push(d);
+        update(root);
+      }
     }
 
     const svg = d3.select("body").append("svg")
