@@ -1,73 +1,164 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Org Chart with GoJS</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/2.1.56/go.js"></script>
+  <meta charset="utf-8">
+  <title>Org Chart with D3.js</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    .node {
+      cursor: pointer;
+    }
+    .node circle {
+      fill: #fff;
+      stroke: steelblue;
+      stroke-width: 3px;
+    }
+    .node text {
+      font: 12px sans-serif;
+    }
+    .link {
+      fill: none;
+      stroke: #ccc;
+      stroke-width: 2px;
+    }
+  </style>
 </head>
 <body>
-  <div id="myDiagramDiv" style="width: 800px; height: 600px; border: 1px solid black"></div>
   <script>
-    function init() {
-      var $ = go.GraphObject.make;
-      
-      var myDiagram =
-        $(go.Diagram, "myDiagramDiv",
-          {
-            layout: $(go.TreeLayout,
-                      { angle: 90, layerSpacing: 35 }),
-            "undoManager.isEnabled": true
-          });
+    const data = {
+      name: "CEO",
+      total: 0,
+      children: [
+        { name: "Manager 1", total: 10, children: [
+          { name: "Employee 1", total: 30 },
+          { name: "Employee 2", total: 40 }
+        ] },
+        { name: "Manager 2", total: 20 }
+      ]
+    };
 
-      myDiagram.nodeTemplate =
-        $(go.Node, "Auto",
-          $(go.Shape, "Rectangle",
-            { fill: "lightblue" }),
-          $(go.TextBlock,
-            { margin: 5 },
-            new go.Binding("text", "name"))
-        );
+    const width = 960;
+    const height = 600;
 
-      var model = $(go.TreeModel);
-      model.nodeDataArray = [
-        { key: 1, name: "CEO", total: 0 },
-        { key: 2, parent: 1, name: "Manager 1", total: 10 },
-        { key: 3, parent: 1, name: "Manager 2", total: 20 },
-        { key: 4, parent: 2, name: "Employee 1", total: 30 },
-        { key: 5, parent: 2, name: "Employee 2", total: 40 }
-      ];
+    const treeLayout = d3.tree().size([width, height - 200]);
 
-      myDiagram.model = model;
+    const root = d3.hierarchy(data);
 
-      // Function to sum totals up the tree
-      function sumTotals(node) {
-        if (node.data.total !== undefined) {
-          var total = node.data.total;
-          node.findTreeChildrenNodes().each(function(child) {
-            total += sumTotals(child);
-          });
-          node.diagram.model.setDataProperty(node.data, "total", total);
-          return total;
-        }
-        return 0;
-      }
+    function update(root) {
+      // Compute the new tree layout.
+      treeLayout(root);
 
-      // Sum totals from the bottom to the top
-      myDiagram.nodes.each(function(node) {
-        sumTotals(node);
-      });
+      // Normalize for fixed-depth.
+      root.each(d => d.y = d.depth * 180);
 
-      myDiagram.model.addChangedListener(function(e) {
-        if (e.isTransactionFinished) {
-          myDiagram.nodes.each(function(node) {
-            if (node.data.total !== undefined) {
-              sumTotals(node);
-            }
-          });
-        }
+      // Select the svg element, if it exists.
+      const svg = d3.select("body").select("svg").select("g");
+
+      // Join the nodes data to the group.
+      const node = svg.selectAll(".node")
+        .data(root.descendants(), d => d.id || (d.id = ++i));
+
+      // Enter any new nodes at the parent's previous position.
+      const nodeEnter = node.enter().append("g")
+        .attr("class", "node")
+        .attr("transform", d => `translate(${d.y},${d.x})`)
+        .on("click", click);
+
+      nodeEnter.append("circle")
+        .attr("r", 10)
+        .style("fill", "#fff");
+
+      nodeEnter.append("text")
+        .attr("dy", ".35em")
+        .attr("x", d => d.children ? -13 : 13)
+        .attr("text-anchor", d => d.children ? "end" : "start")
+        .text(d => `${d.data.name} (${d.data.total})`);
+
+      // Transition nodes to their new position.
+      const nodeUpdate = nodeEnter.merge(node);
+
+      nodeUpdate.transition()
+        .duration(750)
+        .attr("transform", d => `translate(${d.y},${d.x})`);
+
+      nodeUpdate.select("circle")
+        .attr("r", 10)
+        .style("fill", "#fff");
+
+      nodeUpdate.select("text")
+        .style("fill-opacity", 1);
+
+      // Update the links.
+      const link = svg.selectAll(".link")
+        .data(root.links(), d => d.target.id);
+
+      // Enter any new links at the parent's previous position.
+      const linkEnter = link.enter().insert("path", "g")
+        .attr("class", "link")
+        .attr("d", d3.linkHorizontal()
+          .x(d => d.y)
+          .y(d => d.x));
+
+      // Transition links to their new position.
+      linkEnter.merge(link).transition()
+        .duration(750)
+        .attr("d", d3.linkHorizontal()
+          .x(d => d.y)
+          .y(d => d.x));
+
+      // Remove any exiting nodes.
+      node.exit().transition()
+        .duration(750)
+        .attr("transform", d => `translate(${source.y},${source.x})`)
+        .remove();
+
+      // Remove any exiting links.
+      link.exit().transition()
+        .duration(750)
+        .attr("d", d3.linkHorizontal()
+          .x(d => source.y)
+          .y(d => source.x))
+        .remove();
+
+      // Store the old positions for transition.
+      root.each(d => {
+        d.x0 = d.x;
+        d.y0 = d.y;
       });
     }
 
-    window.addEventListener('DOMContentLoaded', init);
+    function click(event, d) {
+      if (d.children) {
+        d._children = d.children;
+        d.children = null;
+      } else {
+        d.children = d._children;
+        d._children = null;
+      }
+      update(d);
+    }
+
+    const svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+      .attr("transform", "translate(100,0)");
+
+    let i = 0;
+    root.x0 = height / 2;
+    root.y0 = 0;
+
+    // Sum totals recursively
+    function sumTotals(node) {
+      if (node.children) {
+        node.children.forEach(child => sumTotals(child));
+        node.data.total = d3.sum(node.children, d => d.data.total);
+      }
+    }
+
+    sumTotals(root);
+
+    update(root);
   </script>
 </body>
 </html>
