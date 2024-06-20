@@ -134,16 +134,14 @@
                         province: document.getElementById('province').value,
                         position: document.getElementById('position').value
                     };
-                    fetch('https://script.google.com/macros/s/AKfycbxrKwI0NAeew3Dbo8OENMQxp3ApGSC1O-UEjaoa94T-0ud-1NeXq0tv1ZIPFvvmZ7r2DQ/exec', {
+                    fetch('https://script.google.com/macros/s/AKfycbyjyXtI4GwNfCr7F66BZJ9rZNU64Tr9S_9sfhYsUkjThD9toXUGT4nuJ0L9zrD5RAJ5yw/exec', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Accept':'*/*'                    
+                                                
                           
                         },
-                        body: JSON.stringify(formData),
-                          mode: 'cors', 
-                            credentials: 'same-origin'  
+                        body: JSON.stringify(formData)   
                     }).then(response => response.json()).then(data => {
                         alert('ลงทะเบียนสำเร็จ!');
                     }).catch(error => {
