@@ -144,7 +144,7 @@
                         alert('ลงทะเบียนสำเร็จ!');
                     }).catch(error => {
                         console.error('Error:', error);
-                        alert('มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง');
+                        alert('มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง' + JSON.stringify(formData));
                     });
                 });
             }).catch(err => {
