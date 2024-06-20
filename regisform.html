@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ฟอร์มลงทะเบียน (1.2.1)</title>
+    <title>ฟอร์มลงทะเบียน (1.2.3)</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -93,7 +93,7 @@
              <div class="form-group">
                 <label for="province">จังหวัด</label> 
                 <select id="province" name="province" required>
-                    <input type="text" id="provinceSearch" placeholder="ค้นหาจังหวัด...">
+                   
                     <option value="" disabled selected>เลือกจังหวัด</option>
                     
                     <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
@@ -109,6 +109,12 @@
                 <label for="position">ตำแหน่ง</label>
                 <input type="text" id="position" name="position" required>
             </div>
+
+             <div class="form-group">
+    <input type="text" id="provinceInput" placeholder="Search for a province...">
+    <div class="result" id="result"></div>
+</div>
+            
             <div class="form-group">
                 <button type="submit">ลงทะเบียน</button>
             </div>
@@ -118,10 +124,34 @@
       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
+
+const provinces = [
+    "Bangkok", "Chiang Mai", "Phuket", "Chonburi", "Nakhon Ratchasima", 
+    "Khon Kaen", "Udon Thani", "Nakhon Si Thammarat", "Songkhla", "Surat Thani"
+];
       
 
     
     <script>
+
+        document.getElementById('provinceInput').addEventListener('input', function() {
+    let input = this.value.toLowerCase();
+    let filteredProvinces = provinces.filter(province => province.toLowerCase().includes(input));
+    let resultBox = document.getElementById('result');
+    resultBox.innerHTML = '';
+    if (input && filteredProvinces.length > 0) {
+        filteredProvinces.forEach(province => {
+            let p = document.createElement('p');
+            p.textContent = province;
+            p.addEventListener('click', function() {
+                document.getElementById('provinceInput').value = province;
+                resultBox.innerHTML = '';
+            });
+            resultBox.appendChild(p);
+        });
+    }
+});
+        
         document.addEventListener('DOMContentLoaded', function() {
             liff.init({ liffId: "2005641282-mG0q5w8V" }).then(() => {
                 if (!liff.isLoggedIn()) {
