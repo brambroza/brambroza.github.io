@@ -119,7 +119,7 @@
                 }
                 return liff.getProfile();
             }).then(profile => {
-                document.getElementById('lineid').value = profile.userId;
+                
                 document.getElementById('display').value = profile.displayName;
                 document.getElementById('registrationForm').addEventListener('submit', function(e) {
                     e.preventDefault();
