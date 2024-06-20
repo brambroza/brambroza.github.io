@@ -106,7 +106,7 @@
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            liff.init({ liffId: "YOUR_LIFF_ID" }).then(() => {
+            liff.init({ liffId: "2005641282-mG0q5w8V" }).then(() => {
                 if (!liff.isLoggedIn()) {
                     liff.login();
                 }
@@ -124,7 +124,7 @@
                         province: document.getElementById('province').value,
                         position: document.getElementById('position').value
                     };
-                    fetch('YOUR_GOOGLE_SHEET_API_URL', {
+                    fetch('https://script.google.com/macros/s/AKfycbxrKwI0NAeew3Dbo8OENMQxp3ApGSC1O-UEjaoa94T-0ud-1NeXq0tv1ZIPFvvmZ7r2DQ/exec', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
