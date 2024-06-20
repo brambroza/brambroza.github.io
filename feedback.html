@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rating Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .rating-form {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .rating-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .stars {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .stars input {
+            display: none;
+        }
+        .stars label {
+            font-size: 2em;
+            color: #444;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .stars input:checked ~ label,
+        .stars input:hover ~ label,
+        .stars input:hover ~ label ~ label {
+            color: gold;
+        }
+        .stars input:checked ~ label ~ label {
+            color: #444;
+        }
+        .suggestions {
+            display: flex;
+            flex-direction: column;
+        }
+        .suggestions textarea {
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            resize: vertical;
+            min-height: 100px;
+        }
+        .submit-btn {
+            background: #e74c3c;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .submit-btn:hover {
+            background: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <form class="rating-form">
+        <h2>Rate Us</h2>
+        <div class="stars">
+            <input type="radio" id="star5" name="rating" value="5">
+            <label for="star5">&#9733;</label>
+            <input type="radio" id="star4" name="rating" value="4">
+            <label for="star4">&#9733;</label>
+            <input type="radio" id="star3" name="rating" value="3">
+            <label for="star3">&#9733;</label>
+            <input type="radio" id="star2" name="rating" value="2">
+            <label for="star2">&#9733;</label>
+            <input type="radio" id="star1" name="rating" value="1">
+            <label for="star1">&#9733;</label>
+        </div>
+        <div class="suggestions">
+            <textarea name="suggestions" placeholder="Your suggestions..."></textarea>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <button type="submit" class="submit-btn">Submit</button>
+        </div>
+    </form>
+</body>
+</html>
