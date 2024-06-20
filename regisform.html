@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ฟอร์มลงทะเบียน (1.1.2)</title>
+    <title>ฟอร์มลงทะเบียน (1.1.3)</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -139,7 +139,8 @@
                     axios.post('https://script.google.com/macros/s/AKfycbxQW7GKO9wiqlwxmlgR5_pdvLn9uZBKGF5iqR_hglxgFo9-zwqgbFDjVAz3QDVJvleJqQ/exec', formData, {
                         headers: {
                             'Content-Type': 'application/json'
-                        }
+                        },
+                        mode: "no-cors"
                     }).then(response => {
                         alert('ลงทะเบียนสำเร็จ!');
                     }).catch(error => {
