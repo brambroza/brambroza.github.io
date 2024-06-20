@@ -67,7 +67,7 @@
 <body>
     <div class="form-container">
         <h2>ลงทะเบียน</h2>
-        <form>
+        <form id="registrationForm">
             <div class="form-group">
                 <label for="firstname">ชื่อ</label>
                 <input type="text" id="firstname" name="firstname" required>
@@ -103,5 +103,44 @@
             </div>
         </form>
     </div>
+    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            liff.init({ liffId: "YOUR_LIFF_ID" }).then(() => {
+                if (!liff.isLoggedIn()) {
+                    liff.login();
+                }
+                return liff.getProfile();
+            }).then(profile => {
+                document.getElementById('registrationForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const formData = {
+                        userId: profile.userId,
+                        displayName: profile.displayName,
+                        firstName: document.getElementById('firstname').value,
+                        lastName: document.getElementById('lastname').value,
+                        company: document.getElementById('company').value,
+                        branch: document.getElementById('branch').value,
+                        province: document.getElementById('province').value,
+                        position: document.getElementById('position').value
+                    };
+                    fetch('YOUR_GOOGLE_SHEET_API_URL', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    }).then(response => response.json()).then(data => {
+                        alert('ลงทะเบียนสำเร็จ!');
+                    }).catch(error => {
+                        console.error('Error:', error);
+                        alert('มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง');
+                    });
+                });
+            }).catch(err => {
+                console.error('LIFF Initialization failed', err);
+            });
+        });
+    </script>
 </body>
 </html>
