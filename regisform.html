@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ฟอร์มลงทะเบียน (1.2.4)</title>
+    <title>ฟอร์มลงทะเบียน (1.2.6)</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -90,30 +90,21 @@
                 <label for="branch">สาขา</label>
                 <input type="text" id="branch" name="branch" required>
             </div>
-             <div class="form-group">
-                <label for="province">จังหวัด</label> 
-                <select id="province" name="province" required>
-                   
-                    <option value="" disabled selected>เลือกจังหวัด</option>
-                    
-                    <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
-                    <option value="เชียงใหม่">เชียงใหม่</option>
-                    <option value="ชลบุรี">ชลบุรี</option>
-                    <option value="ขอนแก่น">ขอนแก่น</option>
-                    <option value="นครราชสีมา">นครราชสีมา</option>
-                    <option value="สุราษฎร์ธานี">สุราษฎร์ธานี</option>
-                    <!-- เพิ่มจังหวัดอื่น ๆ ได้ตามต้องการ -->
-                </select>
-            </div>
+
+               <div class="form-group">
+    <label for="province">จังหวัด</label> 
+                <select id="province" name="province"   required>
+    <div class="result" id="result"></div>
+</div>
+
+            
+             
             <div class="form-group">
                 <label for="position">ตำแหน่ง</label>
                 <input type="text" id="position" name="position" required>
             </div>
 
-             <div class="form-group">
-    <input type="text" id="provinceInput" placeholder="Search for a province...">
-    <div class="result" id="result"></div>
-</div>
+          
             
             <div class="form-group">
                 <button type="submit">ลงทะเบียน</button>
@@ -131,13 +122,88 @@
     <script>
 
         const provinces = [
-    "Bangkok", "Chiang Mai", "Phuket", "Chonburi", "Nakhon Ratchasima", 
-    "Khon Kaen", "Udon Thani", "Nakhon Si Thammarat", "Songkhla", "Surat Thani"
+    "กรุงเทพมหานคร",
+    "สมุทรปราการ",
+    "นนทบุรี",
+    "ปทุมธานี",
+    "พระนครศรีอยุธยา",
+    "อ่างทอง",
+    "ลพบุรี",
+    "สิงห์บุรี",
+    "ชัยนาท",
+    "สระบุรี",
+    "ชลบุรี",
+    "ระยอง",
+    "จันทบุรี",
+    "ตราด",
+    "ฉะเชิงเทรา",
+    "ปราจีนบุรี",
+    "นครนายก",
+    "สระแก้ว",
+    "นครราชสีมา",
+    "บุรีรัมย์",
+    "สุรินทร์",
+    "ศรีสะเกษ",
+    "อุบลราชธานี",
+    "ยโสธร",
+    "ชัยภูมิ",
+    "อำนาจเจริญ",
+    "บึงกาฬ",
+    "หนองบัวลำภู",
+    "ขอนแก่น",
+    "อุดรธานี",
+    "เลย",
+    "หนองคาย",
+    "มหาสารคาม",
+    "ร้อยเอ็ด",
+    "กาฬสินธุ์",
+    "สกลนคร",
+    "นครพนม",
+    "มุกดาหาร",
+    "เชียงใหม่",
+    "ลำพูน",
+    "ลำปาง",
+    "อุตรดิตถ์",
+    "แพร่",
+    "น่าน",
+    "พะเยา",
+    "เชียงราย",
+    "แม่ฮ่องสอน",
+    "นครสวรรค์",
+    "อุทัยธานี",
+    "กำแพงเพชร",
+    "ตาก",
+    "สุโขทัย",
+    "พิษณุโลก",
+    "พิจิตร",
+    "เพชรบูรณ์",
+    "ราชบุรี",
+    "กาญจนบุรี",
+    "สุพรรณบุรี",
+    "นครปฐม",
+    "สมุทรสาคร",
+    "สมุทรสงคราม",
+    "เพชรบุรี",
+    "ประจวบคีรีขันธ์",
+    "นครศรีธรรมราช",
+    "กระบี่",
+    "พังงา",
+    "ภูเก็ต",
+    "สุราษฎร์ธานี",
+    "ระนอง",
+    "ชุมพร",
+    "สงขลา",
+    "สตูล",
+    "ตรัง",
+    "พัทลุง",
+    "ปัตตานี",
+    "ยะลา",
+    "นราธิวาส"
 ];
 
         
 
-        document.getElementById('provinceInput').addEventListener('input', function() {
+        document.getElementById('province').addEventListener('input', function() {
     let input = this.value.toLowerCase();
     let filteredProvinces = provinces.filter(province => province.toLowerCase().includes(input));
     let resultBox = document.getElementById('result');
