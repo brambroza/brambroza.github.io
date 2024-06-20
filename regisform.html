@@ -112,6 +112,8 @@
         </form>
     </div>
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+   
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             liff.init({ liffId: "2005641282-mG0q5w8V" }).then(() => {
@@ -134,22 +136,18 @@
                         province: document.getElementById('province').value,
                         position: document.getElementById('position').value
                     };
-                    fetch('https://script.google.com/macros/s/AKfycbyjyXtI4GwNfCr7F66BZJ9rZNU64Tr9S_9sfhYsUkjThD9toXUGT4nuJ0L9zrD5RAJ5yw/exec', {
-                        method: 'POST',
+                    axios.post('https://script.google.com/macros/s/AKfycbxrKwI0NAeew3Dbo8OENMQxp3ApGSC1O-UEjaoa94T-0ud-1NeXq0tv1ZIPFvvmZ7r2DQ/exec', formData, {
                         headers: {
-                            'Content-Type': 'application/json',
-                                                
-                          
-                        },
-                        body: JSON.stringify(formData)   
-                    }).then(response => response.json()).then(data => {
+                            'Content-Type': 'application/json'
+                        }
+                    }).then(response => {
                         alert('ลงทะเบียนสำเร็จ!');
                     }).catch(error => {
                         console.error('Error:', error);
-                        alert('มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง'  );
-                        alert( JSON.stringify(formData));
-                        alert(error);
+                        alert('มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง');
+                         alert(error);
                     });
+                    
                 });
             }).catch(err => {
                 console.error('LIFF Initialization failed', err);
