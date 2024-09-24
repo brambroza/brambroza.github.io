@@ -347,12 +347,61 @@ document.addEventListener('DOMContentLoaded', function() {
             fileListContainer.removeChild(fileItem);
         });
     }
-
+    
     // จัดการส่งแบบฟอร์ม
     maForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        // ตรวจสอบข้อมูลหรือส่งข้อมูลไปยังเซิร์ฟเวอร์ที่นี่
-        alert('ส่งแบบฟอร์มเรียบร้อยแล้ว! ขอบคุณที่ใช้บริการ');
+
+        let formDataTypeMAFortigate ; 
+        if (document.getElementById('service-type').value === "MA Fortigate" ) {
+
+            for (let i = 0;  i < devicesContainer.children.length ;    i++) {
+              
+              formDataTypeMAFortigate = {
+            cmpName : document.getElementById('company').value , 
+            contactName : document.getElementById('full-name').value , 
+            contactPhone : document.getElementById('phone').value, 
+            contactEmail : document.getElementById('email').value ,
+            address : document.getElementById('address').value , 
+            contactPosition : document.getElementById('position').value , 
+            serviceType : document.getElementById('service-type').value , 
+            model : document.getElementById(`model-${i}`).value, 
+            serial : document.getElementById(`serial-number-${i}`).value, 
+            forticloud : document.getElementById(`forticloud-${i}`).value, 
+            maDuration : document.getElementById(`ma-duration-${i}`).value, 
+            advanceReplacement : document.getElementById(`advance-replacement-${i}`).value, 
+            sla : document.getElementById(`sla-${i}`).value, 
+            additionalDetail : document.getElementById(`additional-details-${i}`).value, 
+
+            axios.post('https://script.google.com/macros/s/AKfycbwBDSXhxZUZopcysz9g9-G29zmvY3Jlv8RG3gfIcAXWCETvuutv2vaTYJ9Ysudt2UJ3SQ/exec', formData, {
+                mode: "no-cors",                       
+                headers: {
+                                           'Content-Type': 'text/plain'
+                                       },
+                                       redirect: "follow", 
+                                      
+                                   }).then(response => {
+                                    alert('ส่งแบบฟอร์มเรียบร้อยแล้ว! ขอบคุณที่ใช้บริการ');
+                                         
+                                   }).catch(error => { 
+                                       alert('มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง');
+                                        alert(error);
+                                   });
+                                    
+
+
+        };
+            
+            
+            }
+
+
+        
+
+      }
+       
+        
+       
         maForm.reset();
         devicesContainer.innerHTML = '';
         devicesSection.style.display = 'none';
