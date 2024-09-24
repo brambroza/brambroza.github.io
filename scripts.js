@@ -459,7 +459,7 @@ document.addEventListener('DOMContentLoaded', function() {
           contactPosition : document.getElementById('position').value , 
           serviceType : document.getElementById('service-type').value ,  
           additionalDetail : document.getElementById('other-details').value ,
-          desiredService : document.getElementsByName('desired-service').value 
+          desiredService : document.getElementById('other-services-section').value 
 
       }
 
