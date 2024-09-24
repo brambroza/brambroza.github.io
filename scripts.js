@@ -371,7 +371,7 @@ document.addEventListener('DOMContentLoaded', function() {
             maDuration : document.getElementById(`ma-duration-${i}`).value, 
             advanceReplacement : document.getElementById(`advance-replacement-${i}`).value, 
             sla : document.getElementById(`sla-${i}`).value, 
-            additionalDetail : document.getElementById(`additional-details-${i}`).value, 
+            additionalDetail : document.getElementById(`additional-details-${i}`).value
 
           
                                     
@@ -393,7 +393,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                    alert('มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง');
                                     alert(error);
                                });
-                               
+
             
             
             }
