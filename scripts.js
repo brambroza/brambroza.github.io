@@ -461,7 +461,7 @@ document.addEventListener('DOMContentLoaded', function() {
           additionalDetail : document.getElementById('other-details').value ,
           desiredService : document.getElementById('desired-service').value 
 
-      };
+      }
 
       axios.post('https://script.google.com/macros/s/AKfycbwBDSXhxZUZopcysz9g9-G29zmvY3Jlv8RG3gfIcAXWCETvuutv2vaTYJ9Ysudt2UJ3SQ/exec', formDataTypeMAFortigate, {
           mode: "no-cors",                       
