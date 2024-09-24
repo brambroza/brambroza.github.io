@@ -421,7 +421,7 @@ document.addEventListener('DOMContentLoaded', function() {
           sla : document.getElementById(`sla-${x}`).value, 
           additionalDetail : document.getElementById(`additional-details-${x}`).value 
 
-      };
+      }
 
       axios.post('https://script.google.com/macros/s/AKfycbwBDSXhxZUZopcysz9g9-G29zmvY3Jlv8RG3gfIcAXWCETvuutv2vaTYJ9Ysudt2UJ3SQ/exec', formDataTypeMAFortigate, {
           mode: "no-cors",                       
@@ -449,8 +449,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         
 
-        for (let i = 0;  i < devicesContainer.children.length ;    i++) {
-            let x = i +1 ;
+       
             formDataTypeMAFortigate = {
           cmpName : document.getElementById('company').value , 
           contactName : document.getElementById('full-name').value , 
