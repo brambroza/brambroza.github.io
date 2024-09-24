@@ -474,16 +474,9 @@ document.addEventListener('DOMContentLoaded', function() {
                              }).catch(error => { 
                                  alert('มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง');
                                   alert(error);
-                             });
+                             }); 
 
-
-
-      }
-
-
-
-       
-        
+      } 
        
         maForm.reset();
         devicesContainer.innerHTML = '';
