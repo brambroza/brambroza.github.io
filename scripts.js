@@ -446,9 +446,11 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       if (document.getElementById('service-type').value === "Other"   ) {
-
-        
-
+        let selectservice = [];
+        const checkboxes  =  document.querySelectorAll('input[name="desired-service[]"]:checked') ;
+        checkboxes.forEach((checkbox) => {
+            selectservice.push(checkbox.value);
+          });
        
             formDataTypeMAFortigate = {
           cmpName : document.getElementById('company').value , 
@@ -459,7 +461,7 @@ document.addEventListener('DOMContentLoaded', function() {
           contactPosition : document.getElementById('position').value , 
           serviceType : document.getElementById('service-type').value ,  
           additionalDetail : document.getElementById('other-details').value ,
-          desiredService : document.querySelectorAll('input[name="desired-service[]"]:checked')
+          desiredService : selectservice
       }
 
       axios.post('https://script.google.com/macros/s/AKfycbxIW2tHryFmvoV-xdmBN990SvRSDEepAztI7MNdT3IQiaIiheBCXzc3crTrEZEGHku4nw/exec', formDataTypeMAFortigate, {
