@@ -459,7 +459,7 @@ document.addEventListener('DOMContentLoaded', function() {
           contactPosition : document.getElementById('position').value , 
           serviceType : document.getElementById('service-type').value ,  
           additionalDetail : document.getElementById('other-details').value ,
-          desiredService : document.getElementById('other-services-section').value 
+          desiredService : document.querySelectorAll('input[name="desired-service[]"]:checked')
       }
 
       axios.post('https://script.google.com/macros/s/AKfycbxIW2tHryFmvoV-xdmBN990SvRSDEepAztI7MNdT3IQiaIiheBCXzc3crTrEZEGHku4nw/exec', formDataTypeMAFortigate, {
