@@ -22,8 +22,11 @@
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <script>
+
+require('.env').config(); 
+
   const CLIENT_ID = '954911341458-6jd6lmolu19s4pgql0a9oimnpfpv793i.apps.googleusercontent.com'; // Replace with your OAuth 2.0 Client ID
-  const API_KEY = ''; // Replace with your API key
+  const API_KEY = process.env.MY_API_KEY; // Replace with your API key
   const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
   const SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
