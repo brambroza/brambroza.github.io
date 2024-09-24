@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                        redirect: "follow", 
                                       
                                    }).then(response => {
-                                    alert('ส่งแบบฟอร์มเรียบร้อยแล้ว! ขอบคุณที่ใช้บริการ');
+                                    alert('ส่งแบบฟอร์มเรียบร้อยแล้ว! ขอบคุณที่ใช้บริการ..');
                                          
                                    }).catch(error => { 
                                        alert('มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง');
