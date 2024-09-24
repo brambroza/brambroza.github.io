@@ -1,0 +1,23 @@
+name: Deploy HTML with Secrets
+
+on:
+  push:
+    branches:
+      - main  # ทำงานเมื่อมีการ push ไปยัง branch main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Replace placeholder with secrets
+      run: |
+        API_KEY=${{ secrets.GOOGLEDRIVE_CLIANTID  }}
+        
+        # แทนที่ค่า {{API_KEY}} ในไฟล์ index.html ด้วยค่า API_KEY จริง
+        sed -i 's/{{API_KEY}}/'"$API_KEY"'/g' uploadfiletogoogledrive.html
+
+    
