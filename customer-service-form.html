@@ -132,54 +132,11 @@
         </form>
     </div>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script src="scripts.js"></script>
- 
-           <script>
-
- document.addEventListener('DOMContentLoaded', function() {
-            liff.init({ liffId: "2005641282-E4am32W0" }).then(() => {
-                if (!liff.isLoggedIn()) {
-                    liff.login();
-                }
-                return liff.getProfile();
-            }).then(profile => {
-                
-                 
-                document.getElementById('registrationForm').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const formData = {
-                        userId: profile.userId,
-                         
-                        issueType: document.getElementById('issue-category').value,
-                        issueDesc: document.getElementById('issue-description').value,
-                        remoteId: document.getElementById('remote-id').value 
-                        
-                    };
-                    axios.post('https://script.google.com/macros/s/AKfycbzD4h7nr_po5W0MadoBOJbeeYuN6CqjHz5-A2rRJhF3ByxkyLhhRzaurN8QsLcIDuvU/exec', formData, {
- mode: "no-cors",                       
- headers: {
-                            'Content-Type': 'text/plain'
-                        },
-                        redirect: "follow", 
-                       
-                    }).then(response => {
-                        alert('ส่งปัญหาเรียบร้อย!');
-                         liff.closeWindow(); 
-                    }).catch(error => {
-                        console.error('Error:', error);
-                        alert('มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง');
-                         alert(error);
-                    });
-                    
-                });
-            }).catch(err => {
-                console.error('LIFF Initialization failed', err);
-                  alert('มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง'  + err);
-            });
-
-             
-        });
-     </script>
+  
     
    
 </body>
