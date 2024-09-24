@@ -371,11 +371,7 @@ document.addEventListener('DOMContentLoaded', function() {
             maDuration : document.getElementById(`ma-duration-${x}`).value, 
             advanceReplacement : document.getElementById(`advance-replacement-${x}`).value, 
             sla : document.getElementById(`sla-${x}`).value, 
-            additionalDetail : document.getElementById(`additional-details-${x}`).value
-
-          
-                                    
-
+            additionalDetail : document.getElementById(`additional-details-${x}`).value 
 
         };
 
@@ -402,6 +398,91 @@ document.addEventListener('DOMContentLoaded', function() {
         
 
       }
+
+      if (document.getElementById('service-type').value === "MA Cisco" || document.getElementById('service-type').value === "MA Server" ) {
+
+
+        for (let i = 0;  i < devicesContainer.children.length ;    i++) {
+            let x = i +1 ;
+            formDataTypeMAFortigate = {
+          cmpName : document.getElementById('company').value , 
+          contactName : document.getElementById('full-name').value , 
+          contactPhone : document.getElementById('phone').value, 
+          contactEmail : document.getElementById('email').value ,
+          address : document.getElementById('address').value , 
+          contactPosition : document.getElementById('position').value , 
+          serviceType : document.getElementById('service-type').value , 
+          model : document.getElementById(`model-${x}`).value, 
+          partNumber : document.getElementById(`part-number-${x}`).value, 
+          serial : document.getElementById(`serial-number-${x}`).value, 
+          maBy : document.getElementById(`ma-by-${x}`).value,  
+          maDuration : document.getElementById(`ma-duration-${x}`).value, 
+          advanceReplacement : document.getElementById(`advance-replacement-${x}`).value, 
+          sla : document.getElementById(`sla-${x}`).value, 
+          additionalDetail : document.getElementById(`additional-details-${x}`).value 
+
+      };
+
+      axios.post('https://script.google.com/macros/s/AKfycbwBDSXhxZUZopcysz9g9-G29zmvY3Jlv8RG3gfIcAXWCETvuutv2vaTYJ9Ysudt2UJ3SQ/exec', formDataTypeMAFortigate, {
+          mode: "no-cors",                       
+          headers: {
+                                     'Content-Type': 'text/plain'
+                                 },
+                                 redirect: "follow", 
+                                
+                             }).then(response => {
+                              alert('ส่งแบบฟอร์มเรียบร้อยแล้ว! ขอบคุณที่ใช้บริการ..');
+                                   
+                             }).catch(error => { 
+                                 alert('มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง');
+                                  alert(error);
+                             });
+
+          
+          
+          }
+
+          
+      }
+
+      if (document.getElementById('service-type').value === "Other"   ) {
+
+        
+
+        for (let i = 0;  i < devicesContainer.children.length ;    i++) {
+            let x = i +1 ;
+            formDataTypeMAFortigate = {
+          cmpName : document.getElementById('company').value , 
+          contactName : document.getElementById('full-name').value , 
+          contactPhone : document.getElementById('phone').value, 
+          contactEmail : document.getElementById('email').value ,
+          address : document.getElementById('address').value , 
+          contactPosition : document.getElementById('position').value , 
+          serviceType : document.getElementById('service-type').value ,  
+          additionalDetail : document.getElementById('other-details').value ,
+          desiredService : document.getElementById('desired-service').value 
+
+      };
+
+      axios.post('https://script.google.com/macros/s/AKfycbwBDSXhxZUZopcysz9g9-G29zmvY3Jlv8RG3gfIcAXWCETvuutv2vaTYJ9Ysudt2UJ3SQ/exec', formDataTypeMAFortigate, {
+          mode: "no-cors",                       
+          headers: { 'Content-Type': 'text/plain' },
+                                 redirect: "follow", 
+                                
+                             }).then(response => {
+                              alert('ส่งแบบฟอร์มเรียบร้อยแล้ว! ขอบคุณที่ใช้บริการ..');
+                                   
+                             }).catch(error => { 
+                                 alert('มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง');
+                                  alert(error);
+                             });
+
+
+
+      }
+
+
+
        
         
        
