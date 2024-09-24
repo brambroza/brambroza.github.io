@@ -356,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (document.getElementById('service-type').value === "MA Fortigate" ) {
 
             for (let i = 0;  i < devicesContainer.children.length ;    i++) {
-              
+              let x = i +1 ;
               formDataTypeMAFortigate = {
             cmpName : document.getElementById('company').value , 
             contactName : document.getElementById('full-name').value , 
@@ -365,13 +365,13 @@ document.addEventListener('DOMContentLoaded', function() {
             address : document.getElementById('address').value , 
             contactPosition : document.getElementById('position').value , 
             serviceType : document.getElementById('service-type').value , 
-            model : document.getElementById(`model-${i}`).value, 
-            serial : document.getElementById(`serial-number-${i}`).value, 
-            forticloud : document.getElementById(`forticloud-${i}`).value, 
-            maDuration : document.getElementById(`ma-duration-${i}`).value, 
-            advanceReplacement : document.getElementById(`advance-replacement-${i}`).value, 
-            sla : document.getElementById(`sla-${i}`).value, 
-            additionalDetail : document.getElementById(`additional-details-${i}`).value
+            model : document.getElementById(`model-${x}`).value, 
+            serial : document.getElementById(`serial-number-${x}`).value, 
+            forticloud : document.getElementById(`forticloud-${x}`).value, 
+            maDuration : document.getElementById(`ma-duration-${x}`).value, 
+            advanceReplacement : document.getElementById(`advance-replacement-${x}`).value, 
+            sla : document.getElementById(`sla-${x}`).value, 
+            additionalDetail : document.getElementById(`additional-details-${x}`).value
 
           
                                     
