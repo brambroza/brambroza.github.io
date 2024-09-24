@@ -373,24 +373,27 @@ document.addEventListener('DOMContentLoaded', function() {
             sla : document.getElementById(`sla-${i}`).value, 
             additionalDetail : document.getElementById(`additional-details-${i}`).value, 
 
-            axios.post('https://script.google.com/macros/s/AKfycbwBDSXhxZUZopcysz9g9-G29zmvY3Jlv8RG3gfIcAXWCETvuutv2vaTYJ9Ysudt2UJ3SQ/exec', formDataTypeMAFortigate, {
-                mode: "no-cors",                       
-                headers: {
-                                           'Content-Type': 'text/plain'
-                                       },
-                                       redirect: "follow", 
-                                      
-                                   }).then(response => {
-                                    alert('ส่งแบบฟอร์มเรียบร้อยแล้ว! ขอบคุณที่ใช้บริการ..');
-                                         
-                                   }).catch(error => { 
-                                       alert('มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง');
-                                        alert(error);
-                                   });
+          
                                     
 
 
         };
+
+        axios.post('https://script.google.com/macros/s/AKfycbwBDSXhxZUZopcysz9g9-G29zmvY3Jlv8RG3gfIcAXWCETvuutv2vaTYJ9Ysudt2UJ3SQ/exec', formDataTypeMAFortigate, {
+            mode: "no-cors",                       
+            headers: {
+                                       'Content-Type': 'text/plain'
+                                   },
+                                   redirect: "follow", 
+                                  
+                               }).then(response => {
+                                alert('ส่งแบบฟอร์มเรียบร้อยแล้ว! ขอบคุณที่ใช้บริการ..');
+                                     
+                               }).catch(error => { 
+                                   alert('มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง');
+                                    alert(error);
+                               });
+                               
             
             
             }
