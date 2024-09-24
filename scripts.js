@@ -375,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         };
 
-        axios.post('https://script.google.com/macros/s/AKfycbwBDSXhxZUZopcysz9g9-G29zmvY3Jlv8RG3gfIcAXWCETvuutv2vaTYJ9Ysudt2UJ3SQ/exec', formDataTypeMAFortigate, {
+        axios.post('https://script.google.com/macros/s/AKfycbxIW2tHryFmvoV-xdmBN990SvRSDEepAztI7MNdT3IQiaIiheBCXzc3crTrEZEGHku4nw/exec', formDataTypeMAFortigate, {
             mode: "no-cors",                       
             headers: {
                                        'Content-Type': 'text/plain'
@@ -423,7 +423,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       }
 
-      axios.post('https://script.google.com/macros/s/AKfycbwBDSXhxZUZopcysz9g9-G29zmvY3Jlv8RG3gfIcAXWCETvuutv2vaTYJ9Ysudt2UJ3SQ/exec', formDataTypeMAFortigate, {
+      axios.post('https://script.google.com/macros/s/AKfycbxIW2tHryFmvoV-xdmBN990SvRSDEepAztI7MNdT3IQiaIiheBCXzc3crTrEZEGHku4nw/exec', formDataTypeMAFortigate, {
           mode: "no-cors",                       
           headers: {
                                      'Content-Type': 'text/plain'
@@ -462,7 +462,7 @@ document.addEventListener('DOMContentLoaded', function() {
           desiredService : document.getElementById('other-services-section').value 
       }
 
-      axios.post('https://script.google.com/macros/s/AKfycbwBDSXhxZUZopcysz9g9-G29zmvY3Jlv8RG3gfIcAXWCETvuutv2vaTYJ9Ysudt2UJ3SQ/exec', formDataTypeMAFortigate, {
+      axios.post('https://script.google.com/macros/s/AKfycbxIW2tHryFmvoV-xdmBN990SvRSDEepAztI7MNdT3IQiaIiheBCXzc3crTrEZEGHku4nw/exec', formDataTypeMAFortigate, {
           mode: "no-cors",                       
           headers: { 'Content-Type': 'text/plain' },
                                  redirect: "follow", 
