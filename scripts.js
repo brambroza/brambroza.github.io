@@ -460,7 +460,6 @@ document.addEventListener('DOMContentLoaded', function() {
           serviceType : document.getElementById('service-type').value ,  
           additionalDetail : document.getElementById('other-details').value ,
           desiredService : document.getElementById('other-services-section').value 
-
       }
 
       axios.post('https://script.google.com/macros/s/AKfycbwBDSXhxZUZopcysz9g9-G29zmvY3Jlv8RG3gfIcAXWCETvuutv2vaTYJ9Ysudt2UJ3SQ/exec', formDataTypeMAFortigate, {
